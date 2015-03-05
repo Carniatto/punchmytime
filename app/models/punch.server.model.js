@@ -10,12 +10,7 @@ var mongoose = require('mongoose'),
  * Punch Schema
  */
 var PunchSchema = new Schema({
-    name: {
-        type: String,
-        default: '',
-        required: 'Please fill Punch name',
-        trim: true
-    },
+
     startTime: {
         type: Date,
         default: Date.now
