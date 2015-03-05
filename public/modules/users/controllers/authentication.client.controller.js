@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', '$mdToast',
+	function($scope, $http, $location, Authentication, $mdToast) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -13,11 +13,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/punches');
 			}).error(function(response) {
-				$scope.error = response.message;
+				// $scope.showToast(response.message);
 			});
 		};
+
+		$scope.showToast = function(error) {
+		    $mdToast.show({
+		        position: 'bottom right',
+		        hideDelay: 3000,
+		        template: '<md-toast><span style="color:red" flex>'+error+'</span></md-toast>'
+		    }
+		    );
+		  };
 
 		$scope.signin = function() {
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
@@ -25,10 +34,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/punches');
 			}).error(function(response) {
-				$scope.error = response.message;
+				$scope.showToast(response.message);
 			});
 		};
+
+		$scope.go = function(path) {
+            $location.path(path);
+        };
+
 	}
 ]);
