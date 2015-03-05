@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'punchmytime';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMaterial',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngMessages', 'angular-momentjs'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
