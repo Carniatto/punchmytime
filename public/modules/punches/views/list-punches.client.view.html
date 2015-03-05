@@ -1,19 +1,46 @@
-<section data-ng-controller="PunchesController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Punches</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="punch in punches" data-ng-href="#!/punches/{{punch._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="punch.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="punch.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="punch.name"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!punches.$resolved || punches.length">
-    	No Punches yet, why don't you <a href="/#!/punches/create">create one</a>?
-    </div>
-</section>
+<div data-ng-controller="PunchesController" data-ng-init="find()">
+<md-card>
+    <md-card-content>
+      <div ng-hide="inProgress">
+          <h1>Time to work</h1>
+          <p>
+            Ready to work?
+          </p>
+      </div>
+      <div ng-show="inProgress">
+        <h1>Working...</h1>
+        <p>
+            Just Tell me when you're done
+        </p>
+        <h2>{{clock |  date:'HH:mm:ss'}}</h2>
+      </div>
+      <div class="bottom-bar">
+        <md-button class="cardBtn clock" ng-hide="inProgress" ng-click="inProgress=true; create()">
+        <strong>Punch!</strong>
+        </md-button>
+        <md-button class="cardBtn done" ng-show="inProgress" ng-click="inProgress=false; close();">
+        <strong>Done!</strong>
+        </md-button>
+      </div>
+    </md-card-content>
+</md-card>
+
+<md-card data-ng-repeat="punch in punches">
+    <md-card-content>
+        <h1 data-ng-bind="punch.startTime | date:'EEEE'"></h1>
+        <small class="list-group-item-text">
+            <p>
+            Start Time:
+            <span data-ng-bind="punch.startTime | date:'HH:mm:ss'"></span>
+            </p>
+            <p>
+            End Time:
+            <span data-ng-bind="punch.endTime | date:'HH:mm:ss'"></span>
+            </p>
+            <span data-ng-bind="punch.user.displayName"></span>
+        </small>
+        <div class="glyphicon glyphicon-trash" data-ng-click="remove(punch)"></div>
+    </md-card-content>
+</md-card>
+
+</div>
