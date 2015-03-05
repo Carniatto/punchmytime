@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="AuthenticationController">
+<!-- <section class="row" data-ng-controller="AuthenticationController">
 	<h3 class="col-md-12 text-center">Sign up using your social accounts</h3>
 	<div class="col-md-12 text-center">
 		<a href="/auth/facebook" class="undecorated-link">
@@ -51,4 +51,49 @@
 			</fieldset>
 		</form>
 	</div>
-</section>
+</section> -->
+
+<div data-ng-controller="AuthenticationController">
+	<md-content class="signin-screen" flex>
+		<form name="userForm">
+			<img src="modules/users/img/signin-header.jpg">
+			<md-input-container>
+		      <label>First name</label>
+		      <input data-ng-model="credentials.firstName" name="firstName" required>
+		      <div ng-messages="userForm.firstName.$error">
+		      </div>
+		    </md-input-container>
+		    <md-input-container>
+		      <label>Last name</label>
+		      <input data-ng-model="credentials.lastName" name="lastName" required>
+		      <div ng-messages="userForm.lastName.$error">
+		      </div>
+		    </md-input-container>
+			<md-input-container>
+		      <label>Email</label>
+		      <input data-ng-model="credentials.email" type="email" name="email" required>
+		      <div ng-messages="userForm.email.$error">
+		          <div ng-message="email">Your email address is invalid</div>
+	          </div>
+		    </md-input-container>
+			<md-input-container>
+		      <label>Username</label>
+		      <input data-ng-model="credentials.username" name="userName" required>
+  		      	<div ng-messages="userForm.userName.$error">
+		      	</div>
+		    </md-input-container>
+		    <md-input-container>
+		      <label>Password</label>
+		      <input data-ng-model="credentials.password" name="password" type="password" required minlength="8">
+		      <div ng-messages="userForm.password.$error">
+			    <div ng-message="minlength">The password has to be atleast 8 characters long.</div>
+		      </div>
+		    </md-input-container>
+		    <div class="signin-buttom">
+		    	<md-button class="md-raised md-primary" data-ng-click="signup()">
+		    		Sign up
+		    	</md-button>
+		    </div>
+	    </form>
+	</md-content>
+</div>

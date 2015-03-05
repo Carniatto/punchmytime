@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 	// Punches Routes
 	app.route('/punches')
-		.get(punches.list)
+		.get(users.requiresLogin, punches.list)
 		.post(users.requiresLogin, punches.create);
 
 	app.route('/punches/:punchId')

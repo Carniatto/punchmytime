@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="AuthenticationController">
+<!-- <section class="row" data-ng-controller="AuthenticationController">
 	<h3 class="col-md-12 text-center">Sign in using your social accounts</h3>
 	<div class="col-md-12 text-center">
 		<a href="/auth/facebook" class="undecorated-link">
@@ -42,4 +42,29 @@
 			</fieldset>
 		</form>
 	</div>
-</section>
+</section> -->
+<div data-ng-controller="AuthenticationController">
+	<md-content class="signin-screen" flex>
+		<img src="modules/users/img/signin-header.jpg">
+		<md-input-container>
+		      <label>Username</label>
+		      <input data-ng-model="credentials.username" name="userName">
+		    </md-input-container>
+		    <md-input-container>
+		      <label>Password</label>
+		      <input data-ng-model="credentials.password" name="password" type="password">
+		    </md-input-container>
+	    <div class="signin-buttom">
+	    	<md-button class="md-raised md-primary" data-ng-click="signin()">
+	    		Sign in
+	    	</md-button>
+	    	<md-button class="md-raised md-primary" data-ng-click="go('/signup')">
+	    		Sign up
+	    	</md-button>
+
+	    	<div data-ng-show="error" class="text-center text-danger">
+				<strong data-ng-bind="error"></strong>
+			</div>
+	    </div>
+	</md-content>
+</div>

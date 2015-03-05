@@ -12,3 +12,13 @@
 	right: 10px;
 	position: absolute;
 }
+
+.signin-screen img{
+    height: 150px;
+    width: 100%;
+    clip: rect(0px,150px,100%,0px);
+}
+
+.signin-buttom{
+    text-align: center;
+}

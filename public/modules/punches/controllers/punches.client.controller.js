@@ -1,23 +1,18 @@
 'use strict';
 
 // Punches controller
-angular.module('punches').controller('PunchesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Punches',
-    function($scope, $stateParams, $location, Authentication, Punches) {
+angular.module('punches').controller('PunchesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Punches', '$timeout', '$moment',
+    function($scope, $stateParams, $location, Authentication, Punches, $timeout, $moment) {
         $scope.authentication = Authentication;
 
         // Create new Punch
         $scope.create = function() {
             // Create new Punch object
-            var punch = new Punches({
-                name: this.name
-            });
-
+            var punch = new Punches();
+             $scope.startClock();
             // Redirect after save
             punch.$save(function(response) {
-                $location.path('punches/' + response._id);
-
-                // Clear form fields
-                $scope.name = '';
+                $scope.punch = response;
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
@@ -26,9 +21,10 @@ angular.module('punches').controller('PunchesController', ['$scope', '$statePara
         // Close a Punch
         $scope.close = function() {
             var punch = $scope.punch;
+            $scope.stopClock();
             if (punch) {
                 punch.$close(function() {
-                    $location.path('punches/' + punch._id);
+                    $scope.find();
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
@@ -74,5 +70,24 @@ angular.module('punches').controller('PunchesController', ['$scope', '$statePara
                 punchId: $stateParams.punchId
             });
         };
+
+
+
+        //timer implementation
+        $scope.tickInterval = 1000 //ms
+        $scope.tick = function () {
+            $scope.clock = $moment().subtract($scope.startTime).toDate(); // get the current time
+            $scope.timer = $timeout($scope.tick, $scope.tickInterval); // reset the timer
+        }
+
+        $scope.startClock = function(){
+            $scope.startTime = $moment();
+            $scope.clock = $moment().subtract($scope.startTime).toDate();
+            $scope.timer = $timeout($scope.tick, $scope.tickInterval);
+        }
+
+        $scope.stopClock = function(){
+            $timeout.cancel($scope.timer);
+        }
     }
 ]);
